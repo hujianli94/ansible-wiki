@@ -35,7 +35,7 @@ plugins:
 # Customization
 extra:
   utteranc:
-    repo: leops-china/ansible-wiki
+    repo: hujianli94.github.io/ansible-wiki
     issueTerm: pathname
     theme: github-light
   social:
@@ -72,7 +72,7 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.magiclink:
       repo_url_shorthand: true
-      user: leops-china
+      user: hujianli
       repo: ansible-wiki
   - pymdownx.mark
   - pymdownx.smartsymbols
