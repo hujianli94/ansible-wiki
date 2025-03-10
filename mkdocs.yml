@@ -1,12 +1,12 @@
 # Project information
-site_name: 'Ansible wiki'
+site_name: 'Ansible wiki for leops-china'
 site_description: 'ansible,wiki,ops,devops,auto,运维自动化'
 site_author: 'lework'
-site_url: 'https://ansible.leops.cn'
+site_url: 'https://hujianli94.github.io/ansible-wiki'
 
 # Repository
-repo_name: 'leops-china/ansible-wiki'
-repo_url: 'https://github.com/leops-china/ansible-wiki'
+repo_name: 'hujianli94.github.io/ansible-wiki'
+repo_url: 'https://hujianli94.github.io/ansible-wiki'
 
 # Copyright
 copyright: 'Copyright &copy; 2020 - 2020 leops'
@@ -40,7 +40,7 @@ extra:
     theme: github-light
   social:
     - icon: fontawesome/brands/github-alt
-      link: 'https://github.com/leops-china/ansible-wiki'
+      link: 'https://hujianli94.github.io/ansible-wiki'
 
 # Google Analytics
 #google_analytics:
