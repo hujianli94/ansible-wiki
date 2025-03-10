@@ -1,40 +1,39 @@
 name: ci
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+      - main
+env:
+  TZ: Asia/Shanghai
 
-# Jobs to run
 jobs:
-  # Build and deploy documentation site
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      # Checkout source form GitHub
-      - uses: actions/checkout@v2
-
-      # Install Python runtime and dependencies
-      - uses: actions/setup-python@v1
+      - name: Set up Python3.x
+        uses: actions/setup-python@v3
         with:
           python-version: 3.x
 
-      # Install theme and dependencies
-      - run: |
-          pip install -r requirements.txt
-          sudo find /opt -name disqus.html -exec sudo cp -fv disqus.html {} \;
+      - name: Set up cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ github.ref }}
+          path: .cache
 
-      # Set configuration for repository and deploy documentation
-      - env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GH_NAME: ${{ secrets.GH_NAME }}
-          GH_EMAIL: ${{ secrets.GH_EMAIL }}
-        run: |
-          REMOTE="https://${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
-          git config --global user.name "${GH_NAME}"
-          git config --global user.email "${GH_EMAIL}"
-          git remote set-url origin ${REMOTE}
-      # Build documentation
-      - run: |
-          mkdocs gh-deploy --force
-          mkdocs --version
+      - name: Install dependencies
+        run: pip install mkdocs-material \
+             mkdocs-minify-plugin>=0.3 mkdocs-redirects>=1.0 \
+             mkdocs-rss-plugin>=0.17 \
+             mkdocs-git-revision-date-localized-plugin
+
+      - name: Deploy
+        env:
+          GOOGLE_ANALYTICS_KEY: ${{ secrets.GOOGLE_ANALYTICS_KEY }}
+        run: mkdocs gh-deploy --force
